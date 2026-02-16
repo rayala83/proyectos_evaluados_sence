@@ -1,0 +1,60 @@
+[
+    {
+        "tipo": "VIP",
+        "id_cliente": 1,
+        "nombre": "Julio Perez",
+        "email": "julio@correo.cl",
+        "direccion": "los pimientos 234",
+        "telefono": "12334568",
+        "total_compra": 2600.0,
+        "descuento": 0.2
+    },
+    {
+        "tipo": "CORP",
+        "id_cliente": 3,
+        "nombre": "Jose mardones",
+        "email": "jose@correo.cl",
+        "direccion": "los lirios 234",
+        "telefono": "3225548515",
+        "total_compra": 2800.0,
+        "descuento": 0.25
+    },
+    {
+        "tipo": "Regular",
+        "id_cliente": 4,
+        "nombre": "Francisco cuello",
+        "email": "fcuello@algo.cl",
+        "direccion": "papudo 234",
+        "telefono": "1234568",
+        "total_compra": 2500.0
+    },
+    {
+        "tipo": "CORP",
+        "id_cliente": 5,
+        "nombre": "Marta Fuentes",
+        "email": "m@correo.cl",
+        "direccion": "las pataguas 123",
+        "telefono": "12315484",
+        "total_compra": 6000.0,
+        "descuento": 0.25
+    },
+    {
+        "tipo": "Regular",
+        "id_cliente": 6,
+        "nombre": "Jose Cabellos",
+        "email": "jose@algo.c\u00f1",
+        "direccion": "los lirios 458",
+        "telefono": "358466",
+        "total_compra": 5000.0
+    },
+    {
+        "tipo": "VIP",
+        "id_cliente": 7,
+        "nombre": "Julian Pardo",
+        "email": "j@correo.cl",
+        "direccion": "clarines 234",
+        "telefono": "154545434",
+        "total_compra": 5000.0,
+        "descuento": 0.18
+    }
+]
