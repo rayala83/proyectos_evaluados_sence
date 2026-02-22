@@ -3,7 +3,7 @@
 
 ### Paso 1 — Crear la Base de Datos
 
-![Crear la base de datos AlkeWallet](/capturas_abp_BD/imagen1.png)  
+![Crear la base de datos AlkeWallet](capturas_abp_BD/imagen1.png)  
 *Figura 1: Crear la base de datos AlkeWallet*
 
 ![Configuración inicial](/capturas_abp_BD/imagen2.png)  
