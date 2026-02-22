@@ -84,7 +84,7 @@
 ![Código de la transacción con COMMIT](imagen20.png)  
 *Figura 20: Implementación de transferencia de fondos (COMMIT)*
 
-![Código de la transacción con COMMIT](imagen22.png)  
+![Código de la transacción con COMMIT](imagen21.png)  
 *Figura 20: Resultados DBeaver (COMMIT)*
 
 ![Error provocado y ROLLBACK](imagen22.png)  
