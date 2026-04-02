@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Movimientos{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+    <div class="login-card p-4 shadow-lg" style="max-width: 600px; width: 100%;">
+
+        <h2 class="text-center mb-4">Últimos Movimientos</h2>
+
+        <!-- 🧾 LISTA -->
+        <div class="scroll-area" style="max-height: 400px; overflow-y: auto;">
+
+            <ul class="list-group list-group-flush">
+
+                {% for tx in transactions %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                        <!-- INFO -->
+                        <div>
+                            {% if tx.sender == user %}
+                                <div class="fw-semibold text-danger">
+                                    Enviado a {{ tx.receiver.email }}
+                                </div>
+                            {% else %}
+                                <div class="fw-semibold text-success">
+                                    Recibido de {{ tx.sender.email }}
+                                </div>
+                            {% endif %}
+
+                            <small class="text-muted">
+                                {{ tx.transaction_date|date:"d M Y H:i" }}
+                            </small>
+                        </div>
+
+                        <!-- MONTO -->
+                        <div class="text-end">
+                            {% if tx.sender == user %}
+                                <div class="text-danger fw-bold">
+                                    -${{ tx.amount }}
+                                </div>
+                            {% else %}
+                                <div class="text-success fw-bold">
+                                    +${{ tx.amount }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </li>
+
+                {% empty %}
+                    <li class="list-group-item text-center text-muted py-4">
+                        No tienes movimientos aún 💸
+                    </li>
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+        <!-- 🔙 BOTÓN -->
+        <div class="d-grid mt-4">
+            <a href="{% url 'dashboard' %}" class="btn btn-login">
+                Volver al inicio
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

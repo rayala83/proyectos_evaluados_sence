@@ -43,6 +43,24 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.sender} - {self.receiver} - {self.amount}"
+    
+
+
+class Contact(models.Model):
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='contacts'
+    )
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+
+    class Meta:
+        verbose_name = 'contacto'
+        verbose_name_plural = 'contactos'
+
+    def __str__(self):
+        return f"{self.name} ({self.email})"
 
 
     

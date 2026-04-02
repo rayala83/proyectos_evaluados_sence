@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Depositar{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    
+    <div class="login-card p-4 shadow-lg">
+
+        <h2 class="text-center mb-4">Depositar</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-4">
+                <label>Monto a depositar</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" name="amount" class="form-control custom-input" required>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button class="btn btn-login">
+                    Confirmar Depósito
+                </button>
+
+                <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">
+                    Volver
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
