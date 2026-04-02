@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="login-card p-4 shadow-lg">
+        <h2 class="text-center mb-4">Bienvenido</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control custom-input" required>
+            </div>
+
+            <div class="mb-4">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control custom-input" required>
+            </div>
+
+            <button class="btn btn-login w-100">Ingresar</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
