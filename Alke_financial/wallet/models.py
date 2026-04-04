@@ -27,25 +27,6 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.first_name} - {self.email}"
     
-
-class Transaction(models.Model):
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_transaction')
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver_transaction')
-    amount = models.DecimalField(max_digits=15, decimal_places=2)
-    transaction_date = models.DateTimeField(auto_now_add=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = 'transaccion'
-        verbose_name_plural = 'transacciones'
-
-
-    def __str__(self):
-        return f"{self.sender} - {self.receiver} - {self.amount}"
-    
-
-
 class Contact(models.Model):
     owner = models.ForeignKey(
         User,
@@ -61,6 +42,28 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.email})"
+    
+
+class Transaction(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_transaction', null=True, blank=True)
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver_transaction', null=True, blank=True)
+    contact = models.ForeignKey(Contact,on_delete=models.SET_NULL,null=True,blank=True)
+    amount = models.DecimalField(max_digits=15, decimal_places=2)
+    transaction_date = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'transaccion'
+        verbose_name_plural = 'transacciones'
+
+
+    def __str__(self):
+        return f"{self.sender} - {self.receiver} - {self.amount}"
+    
+
+
+
 
 
     

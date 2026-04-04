@@ -4,36 +4,37 @@ from decimal import Decimal
 
 from .models import User, Transaction
 
-def transfer_money(sender: User, receiver: User, amount: Decimal):
-    if sender.id == receiver.id:
-        raise ValidationError("No puedes transferirte a ti mismo")
-    
+def transfer_money(sender: User, receiver: User = None, contact=None, amount: Decimal = 0):
+
     if amount <= 0:
-        raise ValidationError("El monto debe ser mayor a 0.")
-    
+        raise ValidationError("Monto inválido")
+
+    if receiver and sender.id == receiver.id:
+        raise ValidationError("No puedes transferirte a ti mismo")
+
     if sender.balance < amount:
         raise ValidationError("Saldo insuficiente")
-    
+
     with transaction.atomic():
+
         sender = User.objects.select_for_update().get(id=sender.id)
-        receiver = User.objects.select_for_update().get(id=receiver.id)
 
-        if sender.balance < amount:
-            raise ValidationError("saldo insuficiente(validacion final)")
-
-        sender.balance == amount
-        receiver.balance == amount
-
+        sender.balance -= amount
         sender.save()
-        receiver.save()
 
-        transaction_record = Transaction.objects.create(
+        # 🔥 si el usuario existe
+        if receiver:
+            receiver = User.objects.select_for_update().get(id=receiver.id)
+            receiver.balance += amount
+            receiver.save()
+
+        Transaction.objects.create(
             sender=sender,
             receiver=receiver,
+            contact=contact,
             amount=amount
         )
 
-    return transaction_record
 
 
 def deposit_money(user, amount: Decimal):
@@ -44,5 +45,12 @@ def deposit_money(user, amount: Decimal):
     with transaction.atomic():
         user.balance += amount
         user.save()
+
+        # 🔥 registrar movimiento
+        Transaction.objects.create(
+            sender=None,
+            receiver=user,
+            amount=amount
+        )
 
     return user

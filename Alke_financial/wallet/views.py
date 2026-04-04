@@ -33,25 +33,27 @@ def transfer_view(request):
         elif "transfer" in request.POST:
             contact_id = request.POST.get("receiver")
             amount = request.POST.get("amount")
+            contact = Contact.objects.get(id=contact_id)
 
-            try:
-                contact = Contact.objects.get(id=contact_id)
-
-                # 🔥 Buscar usuario real por email
+            try:                
                 receiver = User.objects.get(email=contact.email)
-
+            except User.DoesNotExist:
+                receiver = None
+            
+            
                 amount = Decimal(amount)
 
-                transfer_money(request.user, receiver, amount)
+                
+            transfer_money(
+                sender=request.user,
+                receiver=receiver,
+                contact=contact,
+                amount=amount
+            )
 
-                messages.success(request, "Transferencia realizada 💸")
-                return redirect("transfer")
+            messages.success(request, "Transferencia realizada 💸")
+            return redirect("transfer")
 
-            except User.DoesNotExist:
-                messages.error(request, "El contacto no tiene cuenta en la plataforma")
-
-            except Exception as e:
-                messages.error(request, str(e))
 
     return render(request, "wallet/transfer.html", {
         "contacts": contacts,
