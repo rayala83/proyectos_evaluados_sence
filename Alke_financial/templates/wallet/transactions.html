@@ -20,32 +20,56 @@
 
                         <!-- INFO -->
                         <div>
-                            {% if tx.sender == user %}
-                                <div class="fw-semibold text-danger">
-                                    Enviado a {{ tx.receiver.email }}
+
+                            {% if tx.sender is None %}
+                                <div class="fw-semibold text-primary">
+                                    Depósito recibido
                                 </div>
+
+                            {% elif tx.receiver %}
+                                {% if tx.sender == user %}
+                                    <div class="fw-semibold text-danger">
+                                        Enviado a {{ tx.receiver.email }}
+                                    </div>
+                                {% else %}
+                                    <div class="fw-semibold text-success">
+                                        Recibido de {{ tx.sender.email }}
+                                    </div>
+                                {% endif %}
+
                             {% else %}
-                                <div class="fw-semibold text-success">
-                                    Recibido de {{ tx.sender.email }}
+                                <div class="fw-semibold text-warning">
+                                    Enviado a {{ tx.contact.name }} (pendiente)
                                 </div>
+
                             {% endif %}
 
                             <small class="text-muted">
                                 {{ tx.transaction_date|date:"d M Y H:i" }}
                             </small>
+
                         </div>
 
                         <!-- MONTO -->
                         <div class="text-end">
-                            {% if tx.sender == user %}
+
+                            {% if tx.sender is None %}
+                                <div class="text-primary fw-bold">
+                                    +${{ tx.amount }}
+                                </div>
+
+                            {% elif tx.sender == user %}
                                 <div class="text-danger fw-bold">
                                     -${{ tx.amount }}
                                 </div>
+
                             {% else %}
                                 <div class="text-success fw-bold">
                                     +${{ tx.amount }}
                                 </div>
+
                             {% endif %}
+
                         </div>
 
                     </li>
