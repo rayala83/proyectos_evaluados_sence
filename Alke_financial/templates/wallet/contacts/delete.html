@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+    <div class="login-card p-4 shadow-lg text-center">
+
+        <h4>¿Eliminar contacto?</h4>
+
+        <p>{{ contact.name }} - {{ contact.email }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button class="btn btn-danger">Eliminar</button>
+        </form>
+
+        <a href="{% url 'contacts' %}" class="btn btn-secondary mt-2">
+            Cancelar
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

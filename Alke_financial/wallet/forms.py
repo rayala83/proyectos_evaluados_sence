@@ -6,3 +6,7 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ['name', 'email']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control custom-input'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control custom-input'}),
+        }

@@ -126,6 +126,68 @@ def deposit_view(request):
     return render(request, "wallet/deposit.html")
 
 
-           
+def contact_create(request):
+
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.owner = request.user
+            contact.save()
+
+            return redirect("contacts")
+
+    else:
+        form = ContactForm()
+
+    return render(request, "wallet/contacts/form.html", {
+        "form": form
+    })
+
+def contact_list(request):
+    query = request.GET.get("q")
+
+    contacts = Contact.objects.filter(owner=request.user)
+
+    if query:
+        contacts = contacts.filter(
+            Q(name__icontains=query) |
+            Q(email__icontains=query)
+        )
+
+    return render(request, "wallet/contacts/list.html", {
+        "contacts": contacts
+    })
+
+
+def contact_detail(request, id):
+    contact = Contact.objects.get(id=id)
+    return render(request, "wallet/contacts/detail.html", {
+        "contact": contact
+    })
+
+def contact_update(request, id):
+    contact = Contact.objects.get(id=id)
+
+    if request.method == "POST":
+        form = ContactForm(request.POST, instance=contact)
+
+        if form.is_valid():
+            form.save()
+            return redirect("contacts")
+
+    else:
+        form = ContactForm(instance=contact)
+
+    return render(request, "wallet/contacts/form.html", {
+        "form": form
+    })     
+
+
+def contact_delete(request, id):
+    contact = Contact.objects.get(id=id)
+    contact.delete()
+    return redirect("contacts")
 
 
